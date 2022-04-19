@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">HS-Soft Test Task</string>
+    <string name="country_code">Country code:</string>
+    <string name="name">Name:</string>
+    <string name="capital">Capital:</string>
+    <string name="phone_prefix">Phone prefix:</string>
+    <string name="languages">Languages:</string>
 </resources>

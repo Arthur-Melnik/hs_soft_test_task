@@ -6,7 +6,7 @@ import com.hssoft.counries.data.database.dao.CountriesDao
 import com.hssoft.counries.data.mapper.toEntity
 import com.hssoft.counries.data.mapper.toUiModel
 import com.hssoft.counries.data.model.Country
-import com.hssoft.counries.data.utils.Resource
+import com.hssoft.counries.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

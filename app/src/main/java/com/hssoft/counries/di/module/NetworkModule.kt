@@ -1,7 +1,7 @@
 package com.hssoft.counries.di.module
 
 import com.apollographql.apollo3.ApolloClient
-import com.hssoft.counries.data.utils.Constants
+import com.hssoft.counries.utils.Constants
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
