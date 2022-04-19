@@ -35,6 +35,7 @@ class CountriesRepositoryImpl @Inject constructor(
                 response.errors?.forEach { error ->
                     emit(Resource.Error(error.message))
                 }
+                emit(Resource.Loading(false))
                 return@flow
             }
 
