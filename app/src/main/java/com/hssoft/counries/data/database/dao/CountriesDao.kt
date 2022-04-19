@@ -1,10 +1,10 @@
-package com.hssoft.counries.data.local.database.dao
+package com.hssoft.counries.data.database.dao
 
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.hssoft.counries.data.local.database.entity.CountryWithLanguages
+import com.hssoft.counries.data.database.entity.CountryWithLanguages
 
 interface CountriesDao {
     @Transaction
@@ -18,4 +18,16 @@ interface CountriesDao {
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg countryWithLanguages: CountryWithLanguages)
+
+    @Query("DROP TABLE CountryEntity")
+    suspend fun deleteCountries()
+
+    @Query("DROP TABLE LanguageEntity")
+    suspend fun deleteLanguages()
+
+    @Transaction
+    suspend fun deleteAll() {
+        deleteCountries()
+        deleteLanguages()
+    }
 }

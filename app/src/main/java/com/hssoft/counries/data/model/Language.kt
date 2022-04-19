@@ -1,4 +1,4 @@
-package com.hssoft.counries.data.ui.model
+package com.hssoft.counries.data.model
 
 data class Language(
     val code: String,

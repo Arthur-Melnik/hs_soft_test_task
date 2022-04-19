@@ -1,6 +1,6 @@
 package com.hssoft.counries.ui.countries.list
 
-import com.hssoft.counries.data.ui.model.Country
+import com.hssoft.counries.data.model.Country
 
 sealed class CountryListUiState
 

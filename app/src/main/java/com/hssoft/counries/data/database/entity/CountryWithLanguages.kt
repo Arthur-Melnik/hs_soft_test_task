@@ -1,4 +1,4 @@
-package com.hssoft.counries.data.local.database.entity
+package com.hssoft.counries.data.database.entity
 
 import androidx.room.Embedded
 import androidx.room.Junction
