@@ -1,13 +1,15 @@
-package com.hssoft.counries.di
+package com.hssoft.counries.di.module
 
 import com.apollographql.apollo3.ApolloClient
 import com.hssoft.counries.data.utils.Constants
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 object NetworkModule {
 
+    @Singleton
     @Provides
     fun provideApolloClient(): ApolloClient {
         return ApolloClient.Builder()
