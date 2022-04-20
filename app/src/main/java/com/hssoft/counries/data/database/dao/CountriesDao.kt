@@ -1,11 +1,12 @@
 package com.hssoft.counries.data.database.dao
 
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
+import com.hssoft.counries.data.database.entity.CountryEntity
+import com.hssoft.counries.data.database.entity.CountryLanguageCrossRef
 import com.hssoft.counries.data.database.entity.CountryWithLanguages
+import com.hssoft.counries.data.database.entity.LanguageEntity
 
+@Dao
 interface CountriesDao {
     @Transaction
     @Query("SELECT * FROM CountryEntity")
@@ -15,17 +16,22 @@ interface CountriesDao {
     @Query("SELECT * FROM CountryEntity WHERE countryCode =:countryCode")
     suspend fun getCountryWithLanguagesByCode(countryCode: String): CountryWithLanguages
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCountries(vararg countryEntity: CountryEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertLanguages(vararg language: LanguageEntity)
+
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg countryWithLanguages: CountryWithLanguages)
+    suspend fun assignLanguagesToCountries(vararg crossRef: CountryLanguageCrossRef)
 
-    @Query("DROP TABLE CountryEntity")
+    @Query("DELETE FROM CountryEntity")
     suspend fun deleteCountries()
 
-    @Query("DROP TABLE LanguageEntity")
+    @Query("DELETE FROM LanguageEntity")
     suspend fun deleteLanguages()
 
-    @Transaction
     suspend fun deleteAll() {
         deleteCountries()
         deleteLanguages()

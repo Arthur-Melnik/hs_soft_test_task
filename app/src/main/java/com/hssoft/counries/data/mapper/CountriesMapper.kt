@@ -35,6 +35,6 @@ fun CountriesQuery.Language.toEntity() = LanguageEntity(
     name = name ?: ""
 )
 
-fun Country.languagesString(): String {
-    return languages.joinToString(",") { it.name }
+fun Country?.languagesString(): String? {
+    return this?.languages?.joinToString(",") { it.name }
 }

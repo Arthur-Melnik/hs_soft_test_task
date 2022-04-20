@@ -1,19 +1,11 @@
 package com.hssoft.counries
 
 import android.app.Application
-import com.hssoft.counries.di.ApplicationComponent
-import com.hssoft.counries.di.DaggerApplicationComponent
-import com.hssoft.counries.di.module.ApplicationModule
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+@HiltAndroidApp
 class AndroidApplication : Application() {
-    val appComponent: ApplicationComponent by lazy {
-        return@lazy DaggerApplicationComponent
-            .builder()
-            .applicationModule(ApplicationModule(this))
-            .build()
-    }
-
     override fun onCreate() {
         super.onCreate()
         setupTimber()

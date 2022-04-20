@@ -1,6 +1,5 @@
-package com.hssoft.counries.di.module
+package com.hssoft.counries.di
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.apollographql.apollo3.ApolloClient
@@ -8,22 +7,24 @@ import com.hssoft.counries.data.database.AppDatabase
 import com.hssoft.counries.data.database.dao.CountriesDao
 import com.hssoft.counries.data.repository.countries.CountriesRepository
 import com.hssoft.counries.data.repository.countries.CountriesRepositoryImpl
+import com.hssoft.counries.utils.Constants
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(private val application: Application) {
-
-    @Provides
-    fun provideApplicationContext(): Context = application.applicationContext
+@InstallIn(SingletonComponent::class)
+object ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(applicationContext: Context): AppDatabase {
+    fun provideDatabase(@ApplicationContext applicationContext: Context): AppDatabase {
         return Room.databaseBuilder(
             applicationContext,
-            AppDatabase::class.java, "app_database"
+            AppDatabase::class.java, Constants.DATABASE_NAME
         ).build()
     }
 

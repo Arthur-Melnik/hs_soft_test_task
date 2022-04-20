@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.hssoft.counries.databinding.FragmentCountryDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CountryDetailsFragment : Fragment() {
 
     private var _binding: FragmentCountryDetailsBinding? = null

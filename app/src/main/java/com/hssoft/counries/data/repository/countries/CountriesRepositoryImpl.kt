@@ -3,6 +3,8 @@ package com.hssoft.counries.data.repository.countries
 import com.apollographql.apollo3.ApolloClient
 import com.hssoft.counries.CountriesQuery
 import com.hssoft.counries.data.database.dao.CountriesDao
+import com.hssoft.counries.data.database.entity.CountryLanguageCrossRef
+import com.hssoft.counries.data.database.entity.CountryWithLanguages
 import com.hssoft.counries.data.mapper.toEntity
 import com.hssoft.counries.data.mapper.toUiModel
 import com.hssoft.counries.data.model.Country
@@ -42,11 +44,27 @@ class CountriesRepositoryImpl @Inject constructor(
             val countryWithLanguageEntities =
                 response.data?.countries?.map { it.toEntity() } ?: emptyList()
 
-            countriesDao.deleteAll()
-            countriesDao.insertAll(*countryWithLanguageEntities.toTypedArray())
+            updateCountriesDatabase(countryWithLanguageEntities)
             val countries = countriesDao.getCountriesWithLanguages().map { it.toUiModel() }
             emit(Resource.Success(countries))
             emit(Resource.Loading(false))
+        }
+    }
+
+    private suspend fun updateCountriesDatabase(data: List<CountryWithLanguages>) {
+        countriesDao.deleteAll()
+        countriesDao.insertCountries(*data.map { it.country }.toTypedArray())
+        countriesDao.insertLanguages(*data.flatMap { it.languages }.toTypedArray())
+
+        data.forEach { countryWithLanguages ->
+            countriesDao.assignLanguagesToCountries(
+                *countryWithLanguages.languages.map { language ->
+                    CountryLanguageCrossRef(
+                        countryCode = countryWithLanguages.country.countryCode,
+                        languageCode = language.languageCode
+                    )
+                }.toTypedArray()
+            )
         }
     }
 }

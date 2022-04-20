@@ -13,8 +13,10 @@ import com.hssoft.counries.databinding.FragmentCountriesBinding
 import com.hssoft.counries.ui.countries.details.CountryDetailsViewModel
 import com.hssoft.counries.ui.countries.list.items.CountryItem
 import com.xwray.groupie.GroupieAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class CountriesFragment : Fragment() {
 
     private var _binding: FragmentCountriesBinding? = null

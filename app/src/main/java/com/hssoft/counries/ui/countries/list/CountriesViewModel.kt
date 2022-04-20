@@ -7,10 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.hssoft.counries.data.model.Country
 import com.hssoft.counries.data.repository.countries.CountriesRepository
 import com.hssoft.counries.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class CountriesViewModel @Inject constructor(
     private val countriesRepository: CountriesRepository
 ) : ViewModel() {
@@ -29,13 +31,13 @@ class CountriesViewModel @Inject constructor(
     private fun handleCountriesResource(resource: Resource<List<Country>>) {
         when (resource) {
             is Resource.Loading -> {
-                _state.postValue(CountriesLoading(resource.isLoading))
+                _state.value = CountriesLoading(resource.isLoading)
             }
             is Resource.Error -> {
-                _state.postValue(CountriesLoadError(resource.message))
+                _state.value = CountriesLoadError(resource.message)
             }
             is Resource.Success -> {
-                _state.postValue(CountriesLoaded(resource.data ?: emptyList()))
+                _state.value = CountriesLoaded(resource.data ?: emptyList()).copy()
             }
         }
     }

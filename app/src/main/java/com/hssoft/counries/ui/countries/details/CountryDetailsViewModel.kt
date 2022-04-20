@@ -11,6 +11,6 @@ class CountryDetailsViewModel : ViewModel() {
     val state: LiveData<CountriesUiState> = _state
 
     fun selectCountry(country: Country) {
-        _state.postValue(CountrySelected(country))
+        _state.value = CountrySelected(country)
     }
 }
