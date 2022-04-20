@@ -1,4 +1,4 @@
-package com.hssoft.counries.ui.countries
+package com.hssoft.counries.ui.countries.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,16 +18,12 @@ class CountriesViewModel @Inject constructor(
     private val _state: MutableLiveData<CountriesUiState> = MutableLiveData()
     val state: LiveData<CountriesUiState> = _state
 
-    fun loadCountries(fetchFromRemote: Boolean) {
+    fun loadCountries(fetchFromRemote: Boolean = false) {
         viewModelScope.launch {
             countriesRepository
                 .loadCountries(fetchFromRemote)
                 .collect(::handleCountriesResource)
         }
-    }
-
-    fun selectCountry(country: Country) {
-        _state.postValue(CountrySelected(country))
     }
 
     private fun handleCountriesResource(resource: Resource<List<Country>>) {

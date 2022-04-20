@@ -1,4 +1,4 @@
-package com.hssoft.counries.ui.countries
+package com.hssoft.counries.ui.countries.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ class CountryDetailsFragment : Fragment() {
     private var _binding: FragmentCountryDetailsBinding? = null
     private val binding get() = requireNotNull(_binding)
 
-    private val viewModel by activityViewModels<CountriesViewModel>()
+    private val viewModel by activityViewModels<CountryDetailsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +26,7 @@ class CountryDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
     }
 
     override fun onDestroyView() {
@@ -33,5 +34,18 @@ class CountryDetailsFragment : Fragment() {
         _binding = null
     }
 
+    private fun init() {
+        observeUiState()
+    }
+
+    private fun observeUiState() {
+        viewModel.state.observe(viewLifecycleOwner, ::handleUiState)
+    }
+
+    private fun handleUiState(state: CountriesUiState) {
+        when (state) {
+            is CountrySelected -> binding.country = state.country
+        }
+    }
 
 }
