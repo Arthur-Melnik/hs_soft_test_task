@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HSSoftTestTask">
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>
