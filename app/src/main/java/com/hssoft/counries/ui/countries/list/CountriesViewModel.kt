@@ -37,7 +37,7 @@ class CountriesViewModel @Inject constructor(
                 _state.value = CountriesLoadError(resource.message)
             }
             is Resource.Success -> {
-                _state.value = CountriesLoaded(resource.data ?: emptyList()).copy()
+                _state.value = CountriesLoaded(resource.data ?: emptyList())
             }
         }
     }

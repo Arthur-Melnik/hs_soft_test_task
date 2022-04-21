@@ -12,10 +12,6 @@ interface CountriesDao {
     @Query("SELECT * FROM CountryEntity")
     suspend fun getCountriesWithLanguages(): List<CountryWithLanguages>
 
-    @Transaction
-    @Query("SELECT * FROM CountryEntity WHERE countryCode =:countryCode")
-    suspend fun getCountryWithLanguagesByCode(countryCode: String): CountryWithLanguages
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCountries(vararg countryEntity: CountryEntity)
 
